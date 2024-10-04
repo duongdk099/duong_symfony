@@ -22,6 +22,9 @@ class Subscription
     #[ORM\Column]
     private ?int $duration = null;
 
+    #[ORM\ManyToOne(inversedBy: 'subscription')]
+    private ?User $user_id = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -59,6 +62,18 @@ class Subscription
     public function setDuration(int $duration): static
     {
         $this->duration = $duration;
+
+        return $this;
+    }
+
+    public function getUserId(): ?User
+    {
+        return $this->user_id;
+    }
+
+    public function setUserId(?User $user_id): static
+    {
+        $this->user_id = $user_id;
 
         return $this;
     }

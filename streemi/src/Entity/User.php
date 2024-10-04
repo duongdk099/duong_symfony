@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Enum\UserAccountStatusEnum;
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
@@ -26,6 +28,31 @@ class User
 
     #[ORM\Column(enumType: UserAccountStatusEnum::class)]
     private ?UserAccountStatusEnum $accountStatus = null;
+
+    /**
+     * @var Collection<int, Playlist>
+     */
+    #[ORM\OneToMany(targetEntity: Playlist::class, mappedBy: 'user_id')]
+    private Collection $playlists;
+
+    /**
+     * @var Collection<int, Subscription>
+     */
+    #[ORM\OneToMany(targetEntity: Subscription::class, mappedBy: 'user_id')]
+    private Collection $subscription;
+
+    /**
+     * @var Collection<int, WatchHistory>
+     */
+    #[ORM\OneToMany(targetEntity: WatchHistory::class, mappedBy: 'user_id')]
+    private Collection $WatchHistory;
+
+    public function __construct()
+    {
+        $this->playlists = new ArrayCollection();
+        $this->subscription = new ArrayCollection();
+        $this->WatchHistory = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -76,6 +103,96 @@ class User
     public function setAccountStatus(UserAccountStatusEnum $accountStatus): static
     {
         $this->accountStatus = $accountStatus;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Playlist>
+     */
+    public function getPlaylists(): Collection
+    {
+        return $this->playlists;
+    }
+
+    public function addPlaylist(Playlist $playlist): static
+    {
+        if (!$this->playlists->contains($playlist)) {
+            $this->playlists->add($playlist);
+            $playlist->setUserId($this);
+        }
+
+        return $this;
+    }
+
+    public function removePlaylist(Playlist $playlist): static
+    {
+        if ($this->playlists->removeElement($playlist)) {
+            // set the owning side to null (unless already changed)
+            if ($playlist->getUserId() === $this) {
+                $playlist->setUserId(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Subscription>
+     */
+    public function getSubscription(): Collection
+    {
+        return $this->subscription;
+    }
+
+    public function addSubscription(Subscription $subscription): static
+    {
+        if (!$this->subscription->contains($subscription)) {
+            $this->subscription->add($subscription);
+            $subscription->setUserId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSubscription(Subscription $subscription): static
+    {
+        if ($this->subscription->removeElement($subscription)) {
+            // set the owning side to null (unless already changed)
+            if ($subscription->getUserId() === $this) {
+                $subscription->setUserId(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, WatchHistory>
+     */
+    public function getWatchHistory(): Collection
+    {
+        return $this->WatchHistory;
+    }
+
+    public function addWatchHistory(WatchHistory $watchHistory): static
+    {
+        if (!$this->WatchHistory->contains($watchHistory)) {
+            $this->WatchHistory->add($watchHistory);
+            $watchHistory->setUserId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeWatchHistory(WatchHistory $watchHistory): static
+    {
+        if ($this->WatchHistory->removeElement($watchHistory)) {
+            // set the owning side to null (unless already changed)
+            if ($watchHistory->getUserId() === $this) {
+                $watchHistory->setUserId(null);
+            }
+        }
 
         return $this;
     }

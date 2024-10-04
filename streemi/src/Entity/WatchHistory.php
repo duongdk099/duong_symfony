@@ -19,6 +19,9 @@ class WatchHistory
     #[ORM\Column]
     private ?int $numberOfViews = null;
 
+    #[ORM\ManyToOne(inversedBy: 'WatchHistory')]
+    private ?User $user_id = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -44,6 +47,18 @@ class WatchHistory
     public function setNumberOfViews(int $numberOfViews): static
     {
         $this->numberOfViews = $numberOfViews;
+
+        return $this;
+    }
+
+    public function getUserId(): ?User
+    {
+        return $this->user_id;
+    }
+
+    public function setUserId(?User $user_id): static
+    {
+        $this->user_id = $user_id;
 
         return $this;
     }
