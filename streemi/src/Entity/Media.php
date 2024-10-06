@@ -41,9 +41,6 @@ class Media
     #[ORM\ManyToMany(targetEntity: Language::class, inversedBy: 'media')]
     private Collection $languages;
 
-    #[ORM\Column(enumType: MediaTypeEnum::class)]
-    private ?MediaTypeEnum $media_type = null;
-
     #[ORM\Column(length: 255)]
     private ?string $title = null;
 
@@ -148,18 +145,6 @@ class Media
     public function removeLanguage(Language $language): static
     {
         $this->languages->removeElement($language);
-
-        return $this;
-    }
-
-    public function getMediaType(): ?MediaTypeEnum
-    {
-        return $this->media_type;
-    }
-
-    public function setMediaType(MediaTypeEnum $media_type): static
-    {
-        $this->media_type = $media_type;
 
         return $this;
     }

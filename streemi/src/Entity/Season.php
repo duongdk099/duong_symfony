@@ -24,6 +24,11 @@ class Season
     #[ORM\OneToMany(targetEntity: Episode::class, mappedBy: 'season')]
     private Collection $episodes;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Serie::class, inversedBy="seasons")
+     */
+    private $serie;
+
     public function __construct()
     {
         $this->episodes = new ArrayCollection();
@@ -42,6 +47,13 @@ class Season
     public function setNumber(string $number): static
     {
         $this->number = $number;
+
+        return $this;
+    }
+
+    public function setSerie(?Serie $serie): self
+    {
+        $this->serie = $serie;
 
         return $this;
     }
