@@ -72,6 +72,8 @@
     },
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^3.6",
-        "symfony/maker-bundle": "^1.61"
+        "nelmio/alice": "*",
+        "symfony/maker-bundle": "^1.61",
+        "theofidry/alice-data-fixtures": "*"
     }
 }

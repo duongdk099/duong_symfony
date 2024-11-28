@@ -51,6 +51,11 @@ class Season
         return $this;
     }
 
+    public function getSerie(): ?Serie
+    {
+        return $this->serie;
+    }
+
     public function setSerie(?Serie $serie): self
     {
         $this->serie = $serie;
