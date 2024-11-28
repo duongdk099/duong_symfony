@@ -1,0 +1,12 @@
+App\Entity\Category:
+  category_1:
+    name: 'Action'
+    description: 'Action movies with thrilling scenes.'
+
+  category_2:
+    name: 'Adventure'
+    description: 'Adventure movies with epic journeys.'
+
+  category_3:
+    name: 'Comedy'
+    description: 'Comedy movies to make you laugh.'
