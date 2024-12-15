@@ -1,0 +1,5 @@
+{
+    "require": {
+        "nelmio/alice": "^3.13"
+    }
+}

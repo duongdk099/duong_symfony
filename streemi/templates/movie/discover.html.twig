@@ -30,5 +30,10 @@
         <div class="flex items-center justify-between">
             <span class="font-semibold text-gray-700 text-base">Nos recommandations</span>
         </div>
+         <div class="mt-4 grid grid-cols-2 gap-y-5 sm:grid-cols-3 gap-x-5">
+            {% for category in categories %}
+                {% include 'parts/card_category.html.twig' %}
+            {% endfor %}
+        </div>
     </section>
 {% endblock %}

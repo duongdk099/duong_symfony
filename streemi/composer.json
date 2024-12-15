@@ -31,10 +31,17 @@
         "sort-packages": true
     },
     "autoload": {
-        "psr-4": {
-            "App\\": "src/"
+    "psr-4": { "App\\": "src/" }
+},
+    "extra": {
+    "symfony": {
+        "allow-contrib": true,
+        "require": {
+            "nelmio/alice": "^3.0"
         }
-    },
+    }
+}
+,
     "autoload-dev": {
         "psr-4": {
             "App\\Tests\\": "tests/"
