@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\User;
 use App\Entity\Episode;
 use App\Entity\Movie;
 use App\Entity\Season;
@@ -9,11 +10,26 @@ use App\Entity\Serie;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use DateTimeImmutable;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AppFixtures extends Fixture
 {
+
+    private UserPasswordHasherInterface $passwordHasher;
+
+    public function __construct(UserPasswordHasherInterface $passwordHasher)
+    {
+        $this->passwordHasher = $passwordHasher;
+    }
+
     public function load(ObjectManager $manager): void
     {
+
+        // Add a User and associate them with the Season and Episode
+        $user = new User();
+        $user->setEmail('user@example.com')
+             ->setRoles(['ROLE_USER']);
+
         // Create a Movie entity
         $movie = new Movie();
         $movie->setTitle('Inception')
